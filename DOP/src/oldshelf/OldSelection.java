@@ -1,31 +1,24 @@
 package oldshelf;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+public class OldSelection {
 
-class OldSelectionTest {
+   
+   public static String getAgeOrTitle(Object o) {
+        return switch (o) {
+            case Comic comic -> comic.getTitle();
+            case Fiction fiction -> fiction.getName();
+            case TextBook textBook -> textBook.getSubject();
+            case null, default -> "";
+        };
+    }
 
-    @Test
-    void testGetAgeOrTitleWithComic() {
-        Comic comic = new Comic("Dylan:The Great Adventures", 12);
-        assertEquals("Dylan:The Great Adventures", OldSelection.getAgeOrTitle(comic));
-    }
-    @Test
-    void testGetAgeOrTitleWithTextBook() {
-        TextBook textBook = new TextBook("Social Studies");
-        assertEquals("Social Studies", OldSelection.getAgeOrTitle(textBook));
-    }
-    @Test
-    void testGetAgeOrTitleWithFiction() {
-        Fiction fiction = new Fiction("Pulp Fiction", FictionType.Comedy);
-        assertEquals("Pulp Fiction", OldSelection.getAgeOrTitle(fiction));
-    }
-    @Test
-    void testGetAgeOrTitleWithNonBookObject() {
-        Object nonBook = new Object();
-        assertEquals("", OldSelection.getAgeOrTitle(nonBook));
-    }
-    @Test
-    void testGetAgeOrTitleWithNull() {
-        assertEquals("", OldSelection.getAgeOrTitle(null));
+    public static void main(String[] args) {
+        TextBook t = new TextBook("Social Studies");
+        System.out.println("Subject of the TextBook: " + getAgeOrTitle(t)); 
+        
+        Comic c = new Comic("Dylan:The Great Adventures", 12);
+        System.out.println("Title of the Comic: " + getAgeOrTitle(c));
+        
+        Fiction f = new Fiction("Pulp Fiction", FictionType.Comedy);
+        System.out.println("Name of the Fiction: " + getAgeOrTitle(f));
     }
 }
